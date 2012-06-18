@@ -1,2 +1,5 @@
 default:
-	ruby test/*.rb
+	ruby test/require.rb
+	ruby test/join.rb
+	ruby test/chain.rb
+

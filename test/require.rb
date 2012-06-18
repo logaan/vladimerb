@@ -1,5 +1,5 @@
 require File.dirname(File.expand_path(__FILE__)) + "/test_helper.rb"
-require File.dirname(File.expand_path(__FILE__)) + "/../src/require.rb"
+require File.dirname(File.expand_path(__FILE__)) + "/../src/required.rb"
 
 class RequiredTest < Test::Unit::TestCase
   def test_succeeds_for_candidate_with_name
