@@ -1,18 +1,5 @@
-require "rubygems"
-
-gem "test-unit", "2.5.0"
-
-require "test/unit"
-require File.join(File.dirname(File.expand_path(__FILE__)), "../src/require.rb")
-
-class Candidate
-  attr_accessor :name, :age
-
-  def initialize(name, age)
-    @name = name
-    @age = age
-  end
-end
+require File.dirname(File.expand_path(__FILE__)) + "/test_helper.rb"
+require File.dirname(File.expand_path(__FILE__)) + "/../src/require.rb"
 
 class RequiredTest < Test::Unit::TestCase
   def test_succeeds_for_candidate_with_name
