@@ -1,0 +1,2 @@
+default:
+	ruby test/*.rb
