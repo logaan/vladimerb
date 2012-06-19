@@ -4,4 +4,5 @@ default:
 	ruby test/chain.rb
 	ruby test/predicate.rb
 	ruby test/lambda.rb
+	ruby test/helpers.rb
 
