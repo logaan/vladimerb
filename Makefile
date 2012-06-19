@@ -5,4 +5,5 @@ default:
 	ruby test/predicate.rb
 	ruby test/lambda.rb
 	ruby test/helpers.rb
+	ruby test/pattern.rb
 
