@@ -1,6 +1,8 @@
 require File.dirname(File.expand_path(__FILE__)) + "/test_helper.rb"
 require File.dirname(File.expand_path(__FILE__)) + "/../src/required.rb"
 require File.dirname(File.expand_path(__FILE__)) + "/../src/chain.rb"
+require File.dirname(File.expand_path(__FILE__)) + "/../src/greater_than.rb"
+require File.dirname(File.expand_path(__FILE__)) + "/../src/join.rb"
 
 class ChainTest < Test::Unit::TestCase
   def test_shows_first_error
@@ -19,7 +21,7 @@ class ChainTest < Test::Unit::TestCase
     age_required    = Required.new(:age)
     min_age         = GreaterThan.new(:age, 18)
 
-    required_fields = Join.new(name, age)
+    required_fields = Join.new(name_required, age_required)
     all_validations = Chain.new(required_fields, min_age)
 
     candidate       = Candidate.new(nil, nil)
