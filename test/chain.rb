@@ -13,4 +13,19 @@ class ChainTest < Test::Unit::TestCase
 
     assert_equal(["name is required."], errors)
   end
+
+  def test_shows_first_error_set_in_tree
+    name_required   = Required.new(:name)
+    age_required    = Required.new(:age)
+    min_age         = GreaterThan.new(:age, 18)
+
+    required_fields = Join.new(name, age)
+    all_validations = Chain.new(required_fields, min_age)
+
+    candidate       = Candidate.new(nil, nil)
+
+    errors = all_validations.validate(candidate)
+
+    assert_equal(["name is required.", "age is required."], errors)
+  end
 end
