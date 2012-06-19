@@ -6,3 +6,11 @@ must_be_nil.call(nil) # => true
 
 "I love %s in my mouth" % "Teddies" # => "I love Teddies in my mouth"
 
+def foo(&bar)
+  bar.call
+end
+
+foo do
+  puts "cats"
+end
+# => Will print cats
