@@ -29,5 +29,12 @@ class RequiredTest < Test::Unit::TestCase
     errors = validation.validate(candidate)
     assert_equal(["age is required."], errors)
   end
+
+  def test_fails_for_required_data_that_do_not_have_empty_method
+    validation = Required.new(:age)
+    candidate = Candidate.new("Bob", 20)
+    errors = validation.validate(candidate)
+    assert_equal([], errors)
+  end
 end
 
