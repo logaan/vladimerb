@@ -26,4 +26,23 @@ class HelpersTest < Test::Unit::TestCase
     errors = validation.validate(candidate)
     assert_equal(["name is required.", "age is required."], errors)
   end
+
+  def test_lambda_validations_can_be_built_with_blocks
+    validation = lambda_validation do |candidate|
+      (candidate.name.to_s + candidate.age.to_s).length > 10 ?
+        ["Name and Age combined take up too much room to display"] : []
+    end
+
+    candidate = Candidate.new("Colin Logan Campbell-McPherson", 24)
+    errors = validation.validate(candidate)
+    assert_equal(["Name and Age combined take up too much room to display"], errors)
+  end
+
+  def test_lambda_validations_can_be_built_with_blocks
+    validation = pattern(:name, /^[a-zA-Z]+$/)
+    candidate = Candidate.new("Logan Campbell-McPherson", 24)
+    errors = validation.validate(candidate)
+    assert_equal(["name is not formatted correctly."], errors)
+  end
 end
+
