@@ -5,13 +5,11 @@ class HelpersTest < Test::Unit::TestCase
   include Helpers
 
   def test_join_can_compose_multiple_validations
-    validation = join required(:name),
-                      required(:age),
-                      greater_than(:age, 40)
-
-    candidate = Candidate.new("Fred", 50)
-    errors = validation.validate(candidate)
-    assert_equal([], errors)
+    assert_errors Candidate.new("Fred", 50),
+                  join(required(:name),
+                       required(:age),
+                       greater_than(:age, 40)),
+                  []
   end
 
   def test_chain_can_compose_multiple_validations
@@ -25,51 +23,42 @@ class HelpersTest < Test::Unit::TestCase
   end
 
   def test_can_build_composite_validation_attractively
-    age_validation = chain required(:age),
-                          greater_than(:age, 40)
-    validation = join required(:name),
-                      age_validation
+    validation = join(required(:name),
+                      chain(required(:age),
+                            greater_than(:age, 40)))
 
-    candidate = Candidate.new("Fred", 50)
-    errors = validation.validate(candidate)
-    assert_equal([], errors)
+    assert_errors Candidate.new("Fred", 50), validation,
+                  []
 
-    candidate = Candidate.new("Fred", 30)
-    errors = validation.validate(candidate)
-    assert_equal(["age must be over 40."], errors)
+    assert_errors Candidate.new("Fred", 30), validation,
+                  ["age must be over 40."]
 
-    candidate = Candidate.new("", 50)
-    errors = validation.validate(candidate)
-    assert_equal(["name is required."], errors)
+    assert_errors Candidate.new("", 50), validation,
+                  ["name is required."]
 
-    candidate = Candidate.new(nil, nil)
-    errors = validation.validate(candidate)
-    assert_equal(["name is required.", "age is required."], errors)
+    assert_errors Candidate.new(nil, nil), validation
+                  ["name is required.", "age is required."]
   end
 
   def test_lambda_validations_can_be_built_with_blocks
-    validation = lambda_validation do |candidate|
-      (candidate.name.to_s + candidate.age.to_s).length > 10 ?
-        ["Name and Age combined take up too much room to display"] : []
-    end
-
-    candidate = Candidate.new("Colin Logan Campbell-McPherson", 24)
-    errors = validation.validate(candidate)
-    assert_equal(["Name and Age combined take up too much room to display"], errors)
+    assert_errors Candidate.new("Colin Logan Campbell-McPherson", 24),
+                  (lambda_validation do |candidate|
+                    (candidate.name.to_s + candidate.age.to_s).length > 10 ?
+                      ["Name and Age combined take up too much room to display"] : []
+                  end)
+                 ["Name and Age combined take up too much room to display"]
   end
 
   def test_pattern_validations_can_be_built_with_blocks
-    validation = pattern(:name, /^[a-zA-Z]+$/)
-    candidate = Candidate.new("Logan Campbell-McPherson", 24)
-    errors = validation.validate(candidate)
-    assert_equal(["name is not formatted correctly."], errors)
+    assert_errors Candidate.new("Logan Campbell-McPherson", 24),
+                  pattern(:name, /^[a-zA-Z]+$/)
+                  ["name is not formatted correctly."]
   end
 
   def test_predicate_can_be_built_with_blocks
-    validation = predicate(:name, :nil?, "Name must be nil.")
-    candidate = Candidate.new("Jill", 24)
-    errors = validation.validate(candidate)
-    assert_equal(["Name must be nil."], errors)
+    assert_errors Candidate.new("Jill", 24),
+                  predicate(:name, :nil?, "Name must be nil."),
+                  ["Name must be nil."]
   end
 end
 
