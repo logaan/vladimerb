@@ -10,3 +10,9 @@ class Candidate
     @age = age
   end
 end
+
+def assert_errors(data, validation, expected_errors)
+  actual_errors = validation.validate(data)
+  assert_equal(expected_errors, actual_errors)
+end
+
