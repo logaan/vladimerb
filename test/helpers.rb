@@ -38,11 +38,18 @@ class HelpersTest < Test::Unit::TestCase
     assert_equal(["Name and Age combined take up too much room to display"], errors)
   end
 
-  def test_lambda_validations_can_be_built_with_blocks
+  def test_pattern_validations_can_be_built_with_blocks
     validation = pattern(:name, /^[a-zA-Z]+$/)
     candidate = Candidate.new("Logan Campbell-McPherson", 24)
     errors = validation.validate(candidate)
     assert_equal(["name is not formatted correctly."], errors)
+  end
+
+  def test_predicate_can_be_built_with_blocks
+    validation = predicate(:name, :nil?, "Name must be nil.")
+    candidate = Candidate.new("Jill", 24)
+    errors = validation.validate(candidate)
+    assert_equal(["Name must be nil."], errors)
   end
 end
 
