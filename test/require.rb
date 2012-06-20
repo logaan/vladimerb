@@ -36,5 +36,12 @@ class RequiredTest < Test::Unit::TestCase
     errors = validation.validate(candidate)
     assert_equal([], errors)
   end
+
+  def test_fails_with_custom_error_message
+    validation = Required.new(:name, message: "You gotta have a name!")
+    candidate = Candidate.new(nil, 24)
+    errors = validation.validate(candidate)
+    assert_equal(["You gotta have a name!"], errors)
+  end
 end
 

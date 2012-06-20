@@ -16,5 +16,12 @@ class PatternTest < Test::Unit::TestCase
     assert_equal(["name is not formatted correctly."], errors)
   end
 
+  def tests_a_value_does_not_match_a_regex_and_gives_custom_error_message
+    validation = Pattern.new(:name, /ill/, message: "Name is insufficiently ill")
+    candidate = Candidate.new("Fred", 24)
+    errors = validation.validate(candidate)
+    assert_equal(["Name is insufficiently ill"], errors)
+  end
+
 end
 
