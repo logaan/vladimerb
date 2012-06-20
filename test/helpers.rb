@@ -1,5 +1,4 @@
-require File.dirname(File.expand_path(__FILE__)) + "/test_helper.rb"
-require File.dirname(File.expand_path(__FILE__)) + "/../src/helpers.rb"
+require_relative "test_helper.rb"
 
 class HelpersTest < Test::Unit::TestCase
   include Helpers

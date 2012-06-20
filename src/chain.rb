@@ -1,4 +1,6 @@
-class Chain
+require_relative "namespace"
+
+class Vladimerb::Chain
   def initialize validation_1, validation_2
     @validation_1 = validation_1
     @validation_2 = validation_2

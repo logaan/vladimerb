@@ -1,4 +1,6 @@
-class Predicate
+require_relative "namespace"
+
+class Vladimerb::Predicate
   def initialize field_name, method, msg
     @field_name = field_name
     @method = method.to_proc

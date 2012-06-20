@@ -1,6 +1,7 @@
 require "rubygems"
 gem "test-unit", "2.5.0"
 require "test/unit"
+require_relative "../src/vladimerb"
 
 class Candidate
   attr_accessor :name, :age

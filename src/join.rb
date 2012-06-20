@@ -1,4 +1,6 @@
-class Join
+require_relative "namespace"
+
+class Vladimerb::Join
   def initialize required_1, required_2
     @validation_1 = required_1
     @validation_2 = required_2

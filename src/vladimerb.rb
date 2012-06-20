@@ -1,12 +1,12 @@
-require File.dirname(File.expand_path(__FILE__)) + "/join.rb"
-require File.dirname(File.expand_path(__FILE__)) + "/chain.rb"
-require File.dirname(File.expand_path(__FILE__)) + "/required.rb"
-require File.dirname(File.expand_path(__FILE__)) + "/greater_than.rb"
-require File.dirname(File.expand_path(__FILE__)) + "/lambda.rb"
-require File.dirname(File.expand_path(__FILE__)) + "/pattern.rb"
-require File.dirname(File.expand_path(__FILE__)) + "/predicate.rb"
+require_relative "join"
+require_relative "chain"
+require_relative "required"
+require_relative "greater_than"
+require_relative "lambda"
+require_relative "pattern"
+require_relative "predicate"
 
-module Helpers
+module Vladimerb
   def join *validations
     validations.reduce{ |tree, validation|
       Join.new tree, validation }
@@ -37,3 +37,6 @@ module Helpers
     Predicate.new field_name, method, msg
   end
 end
+
+include Vladimerb
+

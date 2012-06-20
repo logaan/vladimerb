@@ -1,4 +1,6 @@
-class LambdaValidation
+require_relative "namespace"
+
+class Vladimerb::LambdaValidation
   def initialize &block
     @block = block
   end

@@ -1,4 +1,6 @@
-class GreaterThan
+require_relative "namespace"
+
+class Vladimerb::GreaterThan
   def initialize field_name, minimum
     @field_name = field_name
     @minimum = minimum
