@@ -21,7 +21,7 @@ class HelpersTest < Test::Unit::TestCase
 
     candidate = Candidate.new(nil, nil)
     errors = validation.validate(candidate)
-    assert_equal(["name is required"], errors)
+    assert_equal(["name is required."], errors)
   end
 
   def test_can_build_composite_validation_attractively

@@ -7,12 +7,14 @@ require File.dirname(File.expand_path(__FILE__)) + "/pattern.rb"
 require File.dirname(File.expand_path(__FILE__)) + "/predicate.rb"
 
 module Helpers
-  def join validation_1, validation_2
-    Join.new validation_1,validation_2
+  def join *validations
+    validations.reduce{ |tree, validation|
+      Join.new tree, validation }
   end
 
-  def chain validation_1, validation_2
-    Chain.new validation_1,validation_2
+  def chain *validations
+    validations.reduce{ |tree, validation|
+      Chain.new tree, validation }
   end
 
   def required field_name
