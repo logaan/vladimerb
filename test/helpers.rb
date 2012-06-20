@@ -4,6 +4,26 @@ require File.dirname(File.expand_path(__FILE__)) + "/../src/helpers.rb"
 class HelpersTest < Test::Unit::TestCase
   include Helpers
 
+  def test_join_can_compose_multiple_validations
+    validation = join required(:name),
+                      required(:age),
+                      greater_than(:age, 40)
+
+    candidate = Candidate.new("Fred", 50)
+    errors = validation.validate(candidate)
+    assert_equal([], errors)
+  end
+
+  def test_chain_can_compose_multiple_validations
+    validation = chain required(:name),
+                       required(:age),
+                       greater_than(:age, 40)
+
+    candidate = Candidate.new(nil, nil)
+    errors = validation.validate(candidate)
+    assert_equal(["name is required"], errors)
+  end
+
   def test_can_build_composite_validation_attractively
     age_validation = chain required(:age),
                           greater_than(:age, 40)
