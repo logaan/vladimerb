@@ -13,13 +13,11 @@ class HelpersTest < Test::Unit::TestCase
   end
 
   def test_chain_can_compose_multiple_validations
-    validation = chain required(:name),
-                       required(:age),
-                       greater_than(:age, 40)
-
-    candidate = Candidate.new(nil, nil)
-    errors = validation.validate(candidate)
-    assert_equal(["name is required."], errors)
+    assert_errors Candidate.new(nil, nil),
+                  chain(required(:name),
+                        required(:age),
+                        greater_than(:age, 40)),
+                  ["name is required."]
   end
 
   def test_can_build_composite_validation_attractively
@@ -36,7 +34,7 @@ class HelpersTest < Test::Unit::TestCase
     assert_errors Candidate.new("", 50), validation,
                   ["name is required."]
 
-    assert_errors Candidate.new(nil, nil), validation
+    assert_errors Candidate.new(nil, nil), validation,
                   ["name is required.", "age is required."]
   end
 
@@ -45,13 +43,13 @@ class HelpersTest < Test::Unit::TestCase
                   (lambda_validation do |candidate|
                     (candidate.name.to_s + candidate.age.to_s).length > 10 ?
                       ["Name and Age combined take up too much room to display"] : []
-                  end)
+                  end),
                  ["Name and Age combined take up too much room to display"]
   end
 
   def test_pattern_validations_can_be_built_with_blocks
     assert_errors Candidate.new("Logan Campbell-McPherson", 24),
-                  pattern(:name, /^[a-zA-Z]+$/)
+                  pattern(:name, /^[a-zA-Z]+$/),
                   ["name is not formatted correctly."]
   end
 
