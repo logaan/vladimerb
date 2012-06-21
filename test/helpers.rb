@@ -1,7 +1,7 @@
 require_relative "test_helper.rb"
 
 class HelpersTest < Test::Unit::TestCase
-  include Helpers
+  include Vladimerb
 
   def test_join_can_compose_multiple_validations
     assert_errors Candidate.new("Fred", 50),

@@ -1,7 +1,7 @@
 require_relative "namespace"
 
 class Vladimerb::Required
-  def initialize field_name, options=nil
+  def initialize field_name, options = nil
     @field_name = field_name
     @custom_message = options[:message] unless options.nil?
   end

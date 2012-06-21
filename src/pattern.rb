@@ -1,7 +1,7 @@
 require_relative "namespace"
 
 class Vladimerb::Pattern
-  def initialize field_name, regex, options=nil
+  def initialize field_name, regex, options = nil
     @field_name = field_name
     @regex = regex
     @custom_message = options[:message] unless options.nil?

@@ -17,8 +17,8 @@ module Vladimerb
       Chain.new tree, validation }
   end
 
-  def required field_name
-    Required.new field_name
+  def required field_name, options = nil
+    Required.new field_name, options
   end
 
   def greater_than field_name, minimum
@@ -29,8 +29,8 @@ module Vladimerb
     LambdaValidation.new &block
   end
 
-  def pattern field_name, regex
-    Pattern.new field_name, regex
+  def pattern field_name, regex, options = nil
+    Pattern.new field_name, regex, options
   end
 
   def predicate field_name, method, msg
