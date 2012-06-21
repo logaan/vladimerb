@@ -19,5 +19,11 @@ class PatternTest < Test::Unit::TestCase
                   ["Name is insufficiently ill"]
   end
 
+  def tests_a_value_can_be_blank
+    assert_errors Candidate.new(nil, 24),
+                  pattern(:name, /ill/, message: "Name is insufficiently ill"),
+                  []
+  end
+
 end
 

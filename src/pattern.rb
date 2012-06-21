@@ -8,12 +8,21 @@ class Vladimerb::Pattern
   end
 
   def validate record
-    record.send(@field_name).match(@regex).nil? ?
-      [error_message] :
-      []
+    check_nil(record.send(@field_name))
   end
 
   private
+
+  # TODO: Not happy with this method name
+  def check_nil(value)
+    value.nil? ?
+      [] : check_match(value)
+  end
+
+  def check_match(value)
+    value.match(@regex).nil? ?
+      [error_message] : []
+  end
 
   def error_message
     @custom_message.nil? ?
