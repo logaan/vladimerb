@@ -1,7 +1,8 @@
 require_relative "test_helper"
 
-
 class GreaterThanTest < Test::Unit::TestCase
+  include Vladimerb
+
   def tests_fails_when_number_not_greater
     assert_errors Candidate.new("Jill", 12),
                   GreaterThan.new(:age, 18),

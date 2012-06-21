@@ -38,5 +38,3 @@ module Vladimerb
   end
 end
 
-include Vladimerb
-

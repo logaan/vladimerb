@@ -1,6 +1,8 @@
 require_relative "test_helper"
 
 class ChainTest < Test::Unit::TestCase
+  include Vladimerb
+
   def test_shows_first_error
     assert_errors Candidate.new(nil, nil),
                   chain(required(:name),

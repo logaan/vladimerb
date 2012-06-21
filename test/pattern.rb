@@ -1,6 +1,8 @@
 require_relative "test_helper.rb"
 
 class PatternTest < Test::Unit::TestCase
+  include Vladimerb
+
   def tests_a_value_matches_a_regex
     assert_errors Candidate.new("Fred", 50),
                   pattern(:name, /ed/),

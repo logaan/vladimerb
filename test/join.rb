@@ -1,6 +1,8 @@
 require_relative "test_helper.rb"
 
 class JoinTest < Test::Unit::TestCase
+  include Vladimerb
+
   def test_shows_all_errors
     assert_errors Candidate.new(nil, nil),
                   join(required(:name),
